@@ -6,7 +6,7 @@ import {
   deleteContact,
   loadContacts,
 } from "../redux/constactsSlice";
-
+import css from "./ContactBook.module.css"
 import { Field, Form, Formik } from "formik";
 import Contact from "./Contact";
 const ContactsBook = () => {
@@ -16,19 +16,10 @@ const ContactsBook = () => {
     name: " ",
     number: " ",
   };
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  useEffect(() => {
-    const storedContacts = JSON.parse(localStorage.getItem("contacts"));
-    if (storedContacts) {
-      dispatch(loadContacts(storedContacts));
-    }
-  }, []);
 
   return (
     <div>
+      <div className={css.contacts}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
@@ -46,7 +37,7 @@ const ContactsBook = () => {
           <Field type="text" name="name" id="name"></Field>
           <label htmlFor="number">Phone Number</label>
           <Field type="text" name="number" id="number"></Field>
-          <button type="submit">Add Contact</button>
+          <button type="submit" className={css.contactBtn}>Add Contact</button>
         </Form>
       </Formik>
       <div>
@@ -60,6 +51,7 @@ const ContactsBook = () => {
             />
           ))}
         </ul>
+      </div>
       </div>
     </div>
   );
